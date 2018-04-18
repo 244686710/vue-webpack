@@ -52,19 +52,20 @@ const config = {
                 NODE_ENV: isDev ? '"development"' : '"production"'
             }
         }),
-        new HTMLPlugin()
+        new HTMLPlugin({
+            title: 'vue+webpack学习'
+        })
     ]
 }
 
 if(isDev) {
     config.devServer = {
-        port: '9000',
-        host:  '0.0.0.0',
+        port: '3003',
+        host:  '127.0.0.1',
         overlay: {
             errors: true,
         },
         open: true,
-        hot: true
     }
 }
 
