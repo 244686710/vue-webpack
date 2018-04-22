@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const isDev = process.env.NODE_ENV === 'development'
  
 const config = {
+    mode: process.env.NODE_ENV,
     entry: path.join(__dirname, 'src/index.js'),
     output: {
         filename: 'bundle.js',
@@ -22,13 +23,23 @@ const config = {
             },
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
+                loader: 'vue-loader'
+            },
+            {
+                test: /\.jsx$/,
+                loader: 'babel-loader',
             },
             {
                 test: /\.styl/,
                 use: [
                     'style-loader',
                     'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
                     'stylus-loader'
                 ]
             },
@@ -59,6 +70,7 @@ const config = {
 }
 
 if(isDev) {
+    config.devtool = '#cheap-module-evel-source-map'
     config.devServer = {
         port: '3003',
         host:  '127.0.0.1',
@@ -66,7 +78,12 @@ if(isDev) {
             errors: true,
         },
         open: true,
+        hot: true
     }
+    config.plugins.push(
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
+    )
 }
 
 module.exports = config
