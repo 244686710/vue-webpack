@@ -5,33 +5,60 @@
             class="add-input"
             autofocus="autofocus"
             placeholder="接下去要做什么?"
-            @keyup.end="addTodo"
+            @keyup.enter="addTodo"
         >
-        <Item :todo="todo"></Item>
-        <Tab></Tab>
+        <Item :todo="todo"
+            v-for="todo in todos"
+            :key="todo.id"
+            @del="deleteTodo"
+        />
+        <Tab 
+        :filter="filter" 
+        :todos="todos" 
+        @toggle="toggleFilter"
+        />
     </section>
 </template>
 
 <script>
 import Item from './item.vue'
 import Tab from './tab.vue'
+let id = 0
 export default {
+    
     components: {
         Item,
         Tab
     },
     data() {
         return {
-            todo: {
-                id: 0,
-                content: 'this is todo',
-                completed: false
+            todos: [],
+            filter: 'all'
+        }
+    },
+    computed: {
+        filterTodos() {
+            if(this.filter === 'all'){
+                return this.todos
             }
+            const completed = this.filter === 'completed'
+            return this.todos.filter(todo => completed === todo.completed)
         }
     },
     methods: {
-        addTodo () {
-
+        addTodo (e) {
+            this.todos.unshift({
+                id: id++,
+                content: e.target.value.trim(),
+                completed: false
+            })
+            e.target.value = ''
+        },
+        deleteTodo(id) {
+            this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
+        },
+        toggleFilter(state){
+            this.filter = state
         }
     }
 }
@@ -39,8 +66,11 @@ export default {
 
 <style lang="stylus" scoped>
     .real-app{
-        width 500px
+        width 425px
         margin 0 auto
+        background #fff
+        padding 20px
+        border-radius 5px
     }
     .add-input{
         padding 0 10px
