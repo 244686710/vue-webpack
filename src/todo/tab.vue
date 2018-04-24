@@ -12,7 +12,7 @@
           </span>
       </span>
 
-      <span class="clear" @click="clearAllComleted">clear</span>
+      <span class="clear" @click="clearAllComleted">clearAllComleted</span>
   </div>
 </template>
 <script>
@@ -42,7 +42,7 @@ export default {
           this.$emit('toggle', state)
       },
       clearAllComleted() {
-          
+          this.$emit('clear')
       }
   }
   
@@ -61,6 +61,8 @@ export default {
     .actived{
         border-radius 2px
         border 1px solid #333
+        box-shadow 0 0 3px #000
+        user-select none
     }
 </style>
 

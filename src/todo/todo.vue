@@ -8,7 +8,7 @@
             @keyup.enter="addTodo"
         >
         <Item :todo="todo"
-            v-for="todo in todos"
+            v-for="todo in filterTodos"
             :key="todo.id"
             @del="deleteTodo"
         />
@@ -16,6 +16,7 @@
         :filter="filter" 
         :todos="todos" 
         @toggle="toggleFilter"
+        @clear='clearAllCompleted'
         />
     </section>
 </template>
@@ -59,6 +60,10 @@ export default {
         },
         toggleFilter(state){
             this.filter = state
+        },
+        clearAllCompleted() {
+            // this.todos = this.todos.filter( todo => todo.completed === false)
+            this.todos = this.todos.filter( todo => !todo.completed)
         }
     }
 }
