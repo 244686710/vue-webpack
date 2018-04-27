@@ -6,6 +6,26 @@ const ExtractPlugin = require('extract-text-webpack-plugin')
 const isDev = process.env.NODE_ENV === 'development'
 const baseConfig = require('./webpack.config.base')
 
+const defaultPlugin = [
+    new webpack.DefinePlugin({
+       'process.env': {
+           NODE_ENV: isDev ? '"development"' : '"production"'
+       }
+    }),
+    new HTMLPlugin({
+       title: 'vue+webpack学习'
+     })
+
+]
+const devServer = {
+    port: '3003',
+    host:  '127.0.0.1',
+    overlay: {
+        errors: true,
+    },
+    open: true,
+    hot: true
+}
 let config
 if(isDev) {
     config = merge(baseConfig, {
@@ -28,25 +48,17 @@ if(isDev) {
             ]
         },
         devtool: '#cheap-module-evel-source-map',
-        devServer: {
-            port: '3003',
-            host:  '127.0.0.1',
-            overlay: {
-                errors: true,
-            },
-            open: true,
-            hot: true
-        },
-        plugins: [
+        devServer,
+        plugins: defaultPlugin.concat([
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NoEmitOnErrorsPlugin()
-        ]
+        ])
 
     })
 } else {
     config = merge(baseConfig, {
         entry: {
-            app: path.join(__dirname, '../src/index.js'),
+            app: path.join(__dirname, '../client/index.js'),
             vender: ['vue'] // 要打包的类库文件
         },
         output: {
@@ -72,7 +84,7 @@ if(isDev) {
                 }
             ]
         },
-        plugins: [
+        plugins:  defaultPlugin.concat([
             new ExtractPlugin('styles.[contentHash:8].css'),
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'vender'
@@ -80,7 +92,7 @@ if(isDev) {
             new webpack.optimize.CommonsChunkPlugin({ //  将webpack生成的生成的js引入
                 name: 'runtime'
             })
-        ]
+        ])
     })
 }
 

@@ -3,10 +3,10 @@ const webpack = require('webpack')
  
 const config = {
     // mode: process.env.NODE_ENV,
-    entry: path.join(__dirname, '../src/index.js'),
+    entry: path.join(__dirname, '../client/index.js'),
     output: {
         filename: 'bundle.js',
-        path: path.join(__dirname, 'dist')
+        path: path.join(__dirname, '../dist')
     },
     module: {
         rules: [{
@@ -38,7 +38,7 @@ const config = {
                         loader: 'url-loader',
                         options: {
                             limit: 1024,
-                            name: '[name]-[hash].[ext]'
+                            name: 'resources/[path][name]-[hash:8].[ext]'
                         }
                     }
 
