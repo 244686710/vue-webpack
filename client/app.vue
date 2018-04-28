@@ -13,16 +13,16 @@ import Header from './layout/header.vue'
 import Footer from './layout/footer.jsx'
 import Todo from './views/todo/todo.vue'
 export default {
-    components: {
-        Header,
-        Footer,
-        Todo
-    },
-    data() {
-        return {
-            text: 'abcacds'
-        }
+  components: {
+    Header,
+    Footer,
+    Todo
+  },
+  data () {
+    return {
+      text: 'abcacds'
     }
+  }
 }
 </script>
 <style lang="stylus" scoped>

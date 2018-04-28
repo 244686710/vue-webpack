@@ -1,11 +1,11 @@
 <template>
-  <header class="main-header">
-      <h1>Yutodo</h1>
+  <header :class="$style.mainHeader">
+    <h1>Yutodo</h1>
   </header>
 </template>
-<style lang="stylus" scoped>
-  .main-header{
-    color: red
-    text-align center
+<style lang="stylus" module>
+  .main-header {
+    color black text-align center
   }
+
 </style>
