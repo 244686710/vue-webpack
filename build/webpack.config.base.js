@@ -24,7 +24,7 @@ const config = {
       test: /\.(vue|js|jsx)$/,
       loader: 'eslint-loader',
       exclude: /node_modules/,
-      enforce: 'pre'
+      enforce: 'pre' // 预处理
     },
     {
       test: /\.vue$/,
