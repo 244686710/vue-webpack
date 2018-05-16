@@ -3,7 +3,8 @@
     <input type="text" class="add-input" autofocus="autofocus" placeholder="接下去要做什么?" @keyup.enter="addTodo">
     <Item :todo="todo" v-for="todo in filterTodos" :key="todo.id" @del="deleteTodo" />
     <Tab :filter="filter" :todos="todos" @toggle="toggleFilter" @clear='clearAllCompleted' />
-  </section>
+    <router-view></router-view>
+  </section> 
 </template>
 
 <script>
